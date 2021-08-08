@@ -2,8 +2,9 @@ version: "3"
 
 services:
   todo-rabbitmq:
+    # platform: linux/amd64
     container_name: todo-rabbitmq
-    image: rabbitmq:3.7.13-management
+    image: arm64v8/rabbitmq:3.8-management
     # 8081: user interface 15672:映射的端口
     # .env 里的url 是用来做 inter communication
     # 把每个部件的dockerfile提取出来做了dockerfile.nodejs.dev
@@ -34,17 +35,18 @@ services:
 
   todo-elastic:
     container_name: todo-elastic
-    image: elasticsearch:6.6.1
+    image: arm64v8/elasticsearch:7.14.0
     ports:
       - 9200:9200
       - 9300:9300
     environment:
       - discovery.type=single-node
+      - java_home=/usr/bin/java
     volumes:
       - elastic-data:/usr/share/elasticsearch/data
 
   todo-cache-ingestion:
-    container_name: todo-cache-ingestion
+    # container_name: todo-cache-ingestion
     build:
       context: todo-cache-ingestion
       dockerfile: ../Dockerfile.nodejs.dev
