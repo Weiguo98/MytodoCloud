@@ -26,13 +26,13 @@ before_install:
  
 # Build development images for test
 before_script:
-  - docker build ./todo-view -f ./todo-view/Dockerfile.dev -t WeiGuo98/todo-view-test
-  - docker build ./todo-cache-service -f Dockerfile.nodejs.dev -t WeiGuo98/todo-cache-service-test
+  - docker build ./todo-view -f ./todo-view/Dockerfile.dev -t weiguo98/todo-view-test
+  - docker build ./todo-cache-service -f Dockerfile.nodejs.dev -t weiguo98/todo-cache-service-test
  
 # Run some tests
 script:
-  - docker run WeiGuo98/todo-view-test npm test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
-  - docker run WeiGuo98/todo-cache-service-test npm test
+  - docker run weiguo98/todo-view-test npm test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox
+  - docker run weiguo98/todo-cache-service-test npm test
  
 after_success:
   # Build Production Images for deployment
